@@ -1,14 +1,12 @@
 <?php
-
-    include('../config/database.php');
-
-    $fname  = $_POST['f_name'];
-    $lname  = $_POST['l_name'];
+   
+    $firstname  = $_POST['f_name'];
+    $lastname  = $_POST['l_name'];
     $email  = $_POST['e_mail'];
-    $passwd = $_POST['passw'];
+    $password = $_POST['passw'];
 
-    //$enc_pass = md5($passwd);
-    $enc_pass = sha1($passwd);
+    //$enc_pass = md5($password);
+    $enc_pass = sha1($password);
     
     $sql_email_exist = "
         SELECT 
@@ -27,13 +25,13 @@
             echo "Email already exists";
         }else{
             $sql = "INSERT INTO users (firstname, lastname, email, password)
-                VALUES('$fname','$lname','$email','$enc_pass')
+                VALUES('$firstname','$lastname','$email','$enc_pass')
             ";
 
             $res = pg_query($conn, $sql);
 
             if ($res){
-                //echo "User has been created succesfully";
+                echo "User has been created succesfully";
                 echo "<script>alert('User has been created. Go to login!')</script>";
                 header('Refresh: 0; URL=http://localhost/schoolar/src/signin.html');
             }else{
